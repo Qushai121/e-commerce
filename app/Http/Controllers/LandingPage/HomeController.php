@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Http\Controllers\LandingPage;
+
+use App\Http\Controllers\Controller;
+use App\Models\Product;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
+
+class HomeController extends Controller
+{
+    public function index()
+    {
+        $products = Product::limit(10)->get(['id', 'product_name', 'image', 'price', 'discount']);
+       
+        return Inertia::render('LandingPage/Home/IndexHome', compact('products'));
+    }
+
+    
+}
