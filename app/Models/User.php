@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'avatar',
     ];
 
     /**
@@ -57,7 +58,7 @@ class User extends Authenticatable
 
     public function bankAccount(): HasOne
     {
-        return $this->hasOne(BankAccount::class, 'user_id', 'id');
+        return $this->hasOne(BankAccount::class);
     }
 
     public function specialAccesss()

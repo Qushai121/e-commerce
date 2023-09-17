@@ -12,13 +12,18 @@ const SidebarLink = [
         name: 'Profile',
     },
     {
+        route: 'dashboard',
+        icon: '/icons/dashboard.svg',
+        name: 'Dashboard',
+    },
+    {
         route: 'topup.index',
-        icon: '/icons/home.svg',
+        icon: '/icons/topup.svg',
         name: 'Top Up',
     },
     {
         route: 'store.index',
-        icon: '/icons/home.svg',
+        icon: '/icons/store.svg',
         name: 'Store',
         submenu: [
             {
@@ -33,7 +38,7 @@ const SidebarLink = [
     },
     {
         route: 'product.index',
-        icon: '/icons/home.svg',
+        icon: '/icons/product.svg',
         name: 'Product',
         submenu: [
             {
@@ -46,11 +51,7 @@ const SidebarLink = [
             },
         ],
     },
-    {
-        route: 'dashboard',
-        icon: '/icons/home.svg',
-        name: 'Dashboard',
-    },
+
 ]
 
 type SidebarProps = {

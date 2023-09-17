@@ -28,7 +28,7 @@ class StoreProductRequest extends FormRequest
             'category' => ['string', 'required', 'min:3'],
             'image' => ['required', File::image()->min('1kb')->max('10mb')],
             'price' => ['numeric', 'required', 'min:3'],
-            'discount' => ['numeric', 'required', 'min:3'],
+            'discount' => ['numeric','nullable'],
             'release_date' => ['date','nullable'],
         ];
     }

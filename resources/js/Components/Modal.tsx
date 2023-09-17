@@ -65,7 +65,7 @@ export default function Modal({
                     <Dialog.Panel
                         className={`mb-6 bg-white h-[80vh] overflow-y-scroll dark:bg-gray-800 rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto ${customWidth} ${maxWidthClass}`}
                     >
-                            {children}
+                        {children}
                     </Dialog.Panel>
                 </Transition.Child>
             </Dialog>

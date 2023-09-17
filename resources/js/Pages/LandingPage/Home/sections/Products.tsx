@@ -11,7 +11,7 @@ const Products: React.FC<ProductsProps> = ({ products }) => {
 
     return (
         <div className=''>
-            <div>
+            <div className='flex gap-6 bg-red-400'>
                 {products.map((product, key) => (
                     <Link href={route('product.detail', product.id)} className="card w-60 bg-base-100 shadow-xl">
                         <figure><img src={'/storage/' + product.image} alt="Shoes" /></figure>

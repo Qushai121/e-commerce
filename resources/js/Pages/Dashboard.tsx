@@ -1,14 +1,13 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
-import { PageProps } from '@/types';
-import DashboardLayout from '@/Layouts/DashboardLayout';
 import WrapperShadow from '@/Components/WrapperShadow';
+import DashboardLayout from '@/Layouts/DashboardLayout';
+import { PageProps } from '@/types';
+import { Head } from '@inertiajs/react';
 
 export default function Dashboard({ auth }: PageProps) {
     // console.log(auth.user);
-    
+
     return (
-        <DashboardLayout paginateMenu={false}>
+        <DashboardLayout>
             <Head title="Dashboard" />
             <WrapperShadow className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">

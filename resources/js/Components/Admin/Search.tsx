@@ -8,7 +8,6 @@ type SearchProps = {
 
 const Search: React.FC<SearchProps> = ({ className }) => {
 
-
     function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
        setTimeout(() => {
             router.get(route(route().current() as string), {

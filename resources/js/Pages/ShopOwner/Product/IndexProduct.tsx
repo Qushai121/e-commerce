@@ -1,10 +1,7 @@
-import ButtonAdmin from '@/Components/Admin/ButtonAdmin'
-import PrimaryButton from '@/Components/PrimaryButton'
 import WrapperShadow from '@/Components/WrapperShadow'
 import DashboardLayout from '@/Layouts/DashboardLayout'
 import DownloadMenu from '@/Components/Admin/DownloadMenu'
 import Search from '@/Components/Admin/Search'
-import NavLink from '@/Components/NavLink'
 import LinkAdmin from '@/Components/Admin/LinkAdmin'
 import React, { useState } from 'react'
 import { Product } from '@/model/Product'
@@ -12,7 +9,6 @@ import { PageProps, PaginateResponse } from '@/types'
 import { usePage } from '@inertiajs/react'
 import MyStoreNow from '@/Components/Admin/MyStoreNow'
 import Blocked from '../../../Components/blockedSection/Blocked'
-import SelectStore from '@/Components/Admin/SelectStore'
 import EditProduct from './EditProduct'
 import BlockedChooseStore from '@/Components/blockedSection/BlockedChooseStore'
 import PaginateAdmin from '@/Components/Admin/PaginateAdmin'
@@ -26,7 +22,7 @@ type IndexProductProps = {
 const IndexProduct: React.FC<IndexProductProps> = ({ datas }) => {
   const { mystores } = usePage<PageProps>().props
   const [haveStoreData] = useState<boolean>(mystores.stores.length > 0)
-  console.log(mystores.chosenStore);
+  // console.log(mystores.chosenStore);
 
 
   return (
@@ -40,7 +36,7 @@ const IndexProduct: React.FC<IndexProductProps> = ({ datas }) => {
           </div>
         </WrapperShadow >
         <DownloadMenu className='w-fit' />
-        <PerPage/>
+        <PerPage />
         <Search className='flex-1 flex justify-end py-2' />
       </div>
       <WrapperShadow className='min-h-[75vh] relative'>

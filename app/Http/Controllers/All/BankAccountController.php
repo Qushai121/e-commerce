@@ -21,8 +21,8 @@ class BankAccountController extends Controller
             'balance' => "numeric|required|min:3"
         ], ['balance.min' => "Minimal Top Up $ 3"]);
 
-        $dataBankAccount = User::find(auth()->user()->id)->with('BankAccount')->first()['BankAccount'];
-
+        $dataBankAccount = User::where('id', auth()->user()->id)->with('BankAccount')->first()['BankAccount'];
+        // dd($dataBankAccount);
         if ($dataBankAccount) {
             $balanceUpdate = [
                 'balance' => $dataBankAccount['balance'] + $validated['balance']

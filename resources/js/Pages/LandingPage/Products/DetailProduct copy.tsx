@@ -7,19 +7,52 @@ import { router, usePage } from '@inertiajs/react'
 import React, { ChangeEvent, SyntheticEvent, useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
 import AddCartProduct from './AddCartProduct'
-import QuantityInput from '@/Components/LandingPage/QuantityInput'
 
 type DetailProductProps = {
     product: Product
 }
-
 const DetailProduct: React.FC<DetailProductProps> = ({ product }) => {
-
+    const [inputValue, setInputValue] = useState<number>(1);
+    const [stockMsg, setStockMsg] = useState<string>()
     const [processing, setProcessing] = useState<boolean>(false)
 
     const { auth } = usePage<PageProps>().props
-    const [inputValue, setInputValue] = useState<number>(1);
-    const [stockMsg, setStockMsg] = useState<string>()
+
+
+    function handleAddInputValue(e: SyntheticEvent) {
+        if (product.stock > inputValue) {
+            setStockMsg('')
+            return setInputValue((prev) => prev += 1)
+        }
+        if (isNaN(inputValue) || inputValue == 0) {
+            setInputValue(1)
+        };
+        return setStockMsg(`Only ${product.stock} left in stock`)
+    }
+
+    function handleDecInputValue(e: SyntheticEvent) {
+        if (inputValue >= 0) {
+            setStockMsg('')
+            setInputValue((prev) => prev -= 1)
+        }
+
+    }
+
+    function handleChangeValue(e: ChangeEvent<HTMLInputElement>) {
+        return setInputValue(e.target.valueAsNumber)
+    }
+
+    useEffect(() => {
+        if (inputValue > product.stock) {
+            setInputValue(product.stock)
+            return setStockMsg(`Only ${product.stock} left in stock`)
+        }
+
+        // if(inputValue == 0){
+        //     setInputValue(1);
+        // }
+
+    }, [inputValue])
 
     function handlePay() {
 
@@ -64,7 +97,15 @@ const DetailProduct: React.FC<DetailProductProps> = ({ product }) => {
                                 <div className='flex flex-col  w-full' >
                                     <>
                                         <h1 className='text-lg font-bold text-center' >CheckOut</h1>
-                                        <QuantityInput product={product} inputValue={inputValue} setInputValue={setInputValue} setStockMsg={setStockMsg} stockMsg={stockMsg} />
+                                        <div className='flex items-center gap-4 justify-center'>
+                                            <div className='w-[50%] flex border-2 border-green-500 rounded-xl justify-center ' >
+                                                <button disabled={inputValue <= 1} onClick={handleDecInputValue} className='disabled:text-stone-300 text-xl w-full hover:bg-green-200 active:bg-green-300 font-bold rounded-r-xl'>-</button>
+                                                <input type="number" placeholder="" value={inputValue} onChange={handleChangeValue} className="w-14 input border-none text-center" />
+                                                <button disabled={inputValue >= product.stock} onClick={handleAddInputValue} className='disabled:text-stone-300 text-xl w-full hover:bg-green-200 active:bg-green-300 font-bold rounded-l-xl '>+</button>
+                                            </div>
+                                            <p>Stock : {product.stock}</p>
+                                        </div>
+                                        <InputError message={stockMsg} />
                                     </>
                                     <div className='mx-6 ' >
                                         <div className='flex justify-between'>

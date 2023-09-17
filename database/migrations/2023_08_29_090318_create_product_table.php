@@ -18,7 +18,7 @@ return new class extends Migration
             $table->longText('category');
             $table->longText('image');
             $table->bigInteger('price');
-            $table->integer('discount');
+            $table->integer('discount')->default(0);
             $table->dateTime('release_date');
             $table->bigInteger('stock');
             $table->timestamps();

@@ -12,3 +12,4 @@ export type Product = {
     updated_at: Date | string,
     stock: number
 }
+

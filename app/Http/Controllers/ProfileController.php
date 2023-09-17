@@ -37,9 +37,11 @@ class ProfileController extends Controller
             Storage::disk('public')->delete($oldAvatar);
         }
 
-        $avatarImg = Storage::disk('public')->put('avatar', $request->file('avatar')[0]);
+        $avatarImg = Storage::disk('public')->put('avatar', $request->file('avatar'));
+
+        
         $request->user()->update(['avatar' => $avatarImg]);
-        return back()->with(['message' => 'Avatar is Change']);
+        return back()->with(['success' => 'Avatar is Change']);
     }
 
     /**

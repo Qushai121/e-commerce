@@ -6,7 +6,9 @@ export interface User {
     name: string;
     email: string;
     email_verified_at: string;
-    specialAccess: string[]
+    specialAccess: string[];
+    avatar: string
+
 }
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
@@ -26,7 +28,7 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
 };
 
 // minta gpt aja bang biar cepet
-type PaginateResponse<T> = {
+export type PaginateResponse<T> = {
     current_page: number;
     data: T[];
     first_page_url: string;
