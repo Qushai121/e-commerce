@@ -22,8 +22,7 @@ type IndexProductProps = {
 const IndexProduct: React.FC<IndexProductProps> = ({ datas }) => {
   const { mystores } = usePage<PageProps>().props
   const [haveStoreData] = useState<boolean>(mystores.stores.length > 0)
-  // console.log(mystores.chosenStore);
-
+  console.log(datas);
 
   return (
     <DashboardLayout>
@@ -54,11 +53,12 @@ const IndexProduct: React.FC<IndexProductProps> = ({ datas }) => {
                     <th>Category</th>
                     <th>Image</th>
                     <th>Price</th>
+                    <th>Stock</th>
                     <th>Discount</th>
                     <th>Release Date</th>
                     <th>Created At</th>
                     <th>Updated At</th>
-                    <th>Store Id</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -69,12 +69,12 @@ const IndexProduct: React.FC<IndexProductProps> = ({ datas }) => {
                       <td>{data.description}</td>
                       <td>{data.category}</td>
                       <td>{data.image}</td>
-                      <td>{data.price}</td>
-                      <td>{data.discount}</td>
+                      <td className='whitespace-nowrap' >$ {data.price}</td>
+                      <td className={data.stock === 0 ? `text-red-400 text-lg font-bold` : '' + 'font-semibold'} >{data.stock}</td>
+                      <td className='whitespace-nowrap' >$ {data.discount}</td>
                       <td>{data.release_date?.toString()}</td>
                       <td>{data.created_at?.toString()}</td>
                       <td>{data.updated_at?.toString()}</td>
-                      <td>{data.store_id}</td>
                       <td>
                         <div className='flex gap-4' >
                           <LinkAdmin href='' className='bg-green-400' >Detail</LinkAdmin>

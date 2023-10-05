@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, useState } from 'react'
+import React, { ChangeEventHandler, useEffect, useState } from 'react'
 import Divider from './Divider'
 import { Link, usePage } from '@inertiajs/react'
 import { PageProps, User } from '@/types'
@@ -10,21 +10,26 @@ const SidebarLink = [
         route: 'profile.edit',
         icon: '/icons/home.svg',
         name: 'Profile',
+        role: ['all'],
+
     },
     {
         route: 'dashboard',
         icon: '/icons/dashboard.svg',
         name: 'Dashboard',
+        role: ['shop_owner'],
     },
     {
         route: 'topup.index',
         icon: '/icons/topup.svg',
         name: 'Top Up',
+        role: ['all'],
     },
     {
         route: 'store.index',
         icon: '/icons/store.svg',
         name: 'Store',
+        role: ['shop_owner'],
         submenu: [
             {
                 route: 'store.index',
@@ -40,6 +45,7 @@ const SidebarLink = [
         route: 'product.index',
         icon: '/icons/product.svg',
         name: 'Product',
+        role: ['shop_owner'],
         submenu: [
             {
                 route: 'product.index',
@@ -48,6 +54,18 @@ const SidebarLink = [
             {
                 route: 'product.create',
                 name: 'Add Product',
+            },
+        ],
+    },
+    {
+        route: 'shop_owner.product.transaction',
+        icon: '/icons/transaction.svg',
+        name: 'Product Transaction',
+        role: ['shop_owner', 'store_3'],
+        submenu: [
+            {
+                route: 'shop_owner.product.transaction',
+                name: 'List Product Transaction',
             },
         ],
     },
@@ -61,18 +79,39 @@ type SidebarProps = {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ user, openSideBar, handleOpenSideBar }) => {
-    // ini dapet dari middlware handleinertiareq
+    const specialAccess = usePage<PageProps>().props.auth.roles.special_accesss;
+    const [permissions, setpermissions] = useState([])
 
-    console.log(user);
+    function permissionss() {
+        for (let i = 0; i < specialAccess.length; i++) {
+            const element = specialAccess[i];
+            setpermissions((prev) => [...prev, element.permission])
+        }
+
+    }
 
 
-    // console.log(mystore);
+    useEffect(() => {
+        permissionss()
+    }, [])
+
+    useEffect(() => {
+
+        setOpenDropDown(' ')
+        localStorage.setItem('DropdownAdmin', ' ')
+
+        return () => {
+
+        }
+    }, [window.location.href])
 
 
 
     const [openDropDown, setOpenDropDown] = useState<string>(localStorage.getItem('DropdownAdmin') || ' ')
 
     function handleOpenDropDown(theRoute: string) {
+        console.log(theRoute);
+
         if (theRoute == openDropDown) {
             setOpenDropDown(' ')
             localStorage.setItem('DropdownAdmin', ' ')
@@ -99,15 +138,20 @@ const Sidebar: React.FC<SidebarProps> = ({ user, openSideBar, handleOpenSideBar 
                             <div className='flex h-full' >
                                 <div className='flex flex-1 flex-col items-start my-2 gap-2 mx-4' >
                                     {
-                                        SidebarLink.map((data, key) => (
-                                            <div key={key} className='w-full flex flex-col duration-300 relative'>
+                                        SidebarLink.filter(item => {
+                                            if (item.role[0] === 'all') {
+                                                return true
+                                            }
+                                            return item.role.some(role => permissions.includes(role));
+                                        }).map((data, key) => (
+                                            <div key={key} className={` w-full flex flex-col duration-300 relative`}>
                                                 {!data.submenu ?
                                                     <Link href={route(data.route)} >
                                                         <div className={`${route().current(data.route) ? 'bg-gradient-to-r from-gray-50 to-stone-300' : 'bg-stone-50'} duration-300 rounded-xl  w-full h-12 flex justify-start items-center`} >
                                                             <div className='h-8 rounded-lg w-8 shadow-base_secondary shadow-md m-2 object-cover' >
                                                                 <img src={data.icon} alt="" className='h-full p-2' />
                                                             </div>
-                                                            <p className='text-sm font-light' >{data.name}</p>
+                                                            <p className='text-sm font-light w-[40%] whitespace-nowrap flex flex-wrap' >{data.name}</p>
                                                         </div>
                                                     </Link>
                                                     : <div className='w-full '>
@@ -116,7 +160,7 @@ const Sidebar: React.FC<SidebarProps> = ({ user, openSideBar, handleOpenSideBar 
                                                                 <div className='h-8 rounded-lg w-8 shadow-base_secondary shadow-md m-2 object-cover' >
                                                                     <img src={data.icon} alt="" className='h-full p-2' />
                                                                 </div>
-                                                                <p className='text-sm font-light' >{data.name}</p>
+                                                                <p className='text-sm font-light w-[40%] whitespace-nowrap flex flex-wrap' >{data.name}</p>
                                                             </div>
                                                             <div className='h-8 rounded-lg w-8 bg-stone-50 shadow-base_secondary shadow-md m-2 object-cover' >
                                                                 <img src="/icons/chevron_down.svg" alt="" className={`${openDropDown == data.route ? 'rotate-180' : 'rotate-0'} h-full p-2 ease-in duration-300 `} />

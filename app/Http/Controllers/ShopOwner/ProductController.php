@@ -62,6 +62,8 @@ class ProductController extends Controller
 
         $requestMerge['image'] = Storage::disk('public')->put('product_image', $requestMerge['image']);
         Product::create($requestMerge);
+
+        return to_route('product.index');
     }
 
     /**
@@ -116,5 +118,6 @@ class ProductController extends Controller
     {
         Storage::disk('public')->delete('product_image', $product->image);
         $product->delete();
+        return redirect()->back();
     }
 }

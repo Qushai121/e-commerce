@@ -17,7 +17,6 @@ class ShopOwnerController extends Controller
      **/
     public function index(): Response
     {
-        
         return Inertia::render('LandingPage/ShopOwner/IndexShopOwner');
     }
 

@@ -5,7 +5,7 @@ type WrapperMxMainProps = {
 }
 const WrapperMxMain: React.FC<WrapperMxMainProps> = ({ children, className }) => {
     return (
-        <div className={`mx-72 ` + className} >
+        <div className={`xl:mx-72 ` + className} >
             {children}
         </div >
     )

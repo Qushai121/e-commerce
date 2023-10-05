@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('product_transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->nullable()->references('id')->on('products')->cascadeOnDelete();
-            $table->foreignId('user_id')->nullable()->references('id')->on('users')->cascadeOnDelete();
+            $table->foreignId('customer_id')->nullable()->references('id')->on('users')->cascadeOnDelete();
             $table->bigInteger('discount')->nullable();
             $table->bigInteger('quantity');
             $table->bigInteger('total_price');

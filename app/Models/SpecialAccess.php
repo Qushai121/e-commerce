@@ -9,4 +9,5 @@ class SpecialAccess extends Model
 {
     use HasFactory;
     public $table = 'special_accesss';
+    protected $hidden = ['pivot'];
 }

@@ -20,7 +20,7 @@ class RoleFilter
         $specialAccess = User::find(auth()->user()->id)->with(['specialAccesss' =>  function ($q) {
             $q->select("permission");
         }])->first('id')->specialAccesss->pluck('permission');
-
+        
         $role = explode('&', $roles);
         foreach ($specialAccess as $permission) {
             if (!in_array($permission, $role)) {

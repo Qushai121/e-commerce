@@ -63,7 +63,7 @@ class User extends Authenticatable
 
     public function specialAccesss()
     {
-        return $this->belongsToMany(SpecialAccess::class, 'roles', 'user_id', 'special_access_id');
+        return $this->belongsToMany(SpecialAccess::class, 'roles');
     }
 
 }

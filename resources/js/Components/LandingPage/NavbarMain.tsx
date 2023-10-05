@@ -47,7 +47,7 @@ const NavbarMain = () => {
               <span className="h-[80%] rounded-lg w-[3px] bg-stone-200 mr-8 hidden xl:block">&nbsp;</span>
               <div className='flex gap-4 py-4'>
                 {
-                  auth ? <>
+                  auth.user ? <>
                     <div className='' >
                       <Link href={route('cart_product.index')} >
                         <img src="/icons/cart_shop.svg" alt="" />
@@ -73,15 +73,17 @@ const NavbarMain = () => {
         </div>
       </div>
 
-      <div className='border-b-2' >
-        <WrapperMxMain>
-          <div className='flex gap-6 text-sm py-1 '>
-            <Link href='' >Batik</Link>
-            <Link href='' >Baby clothes</Link>
-            <Link href='' >Bag</Link>
-            <Link href='' >Camera</Link>
-            <Link href='' >Sweeter</Link>
-            <Link href='' >Vacuum Cleaner</Link>
+      <div className='border-b-2 ' >
+        <WrapperMxMain  >
+          <div className='mx-10 mx overflow-auto' >
+            <div className='flex justify-start gap-6 text-sm py-2'>
+              <Link className='whitespace-nowrap' href='' >Batik</Link>
+              <Link className='whitespace-nowrap' href='' >Baby clothes</Link>
+              <Link className='whitespace-nowrap' href='' >Bag</Link>
+              <Link className='whitespace-nowrap' href='' >Camera</Link>
+              <Link className='whitespace-nowrap' href='' >Sweeter</Link>
+              <Link className='whitespace-nowrap' href='' >Vacuum Cleaner</Link>
+            </div>
           </div>
         </WrapperMxMain>
       </div>

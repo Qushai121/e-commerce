@@ -13,7 +13,7 @@ export default function Guest({ children }: PropsWithChildren) {
             </div>
             <div className='mt-[14vh]' >
                 <div className='flex justify-center ' >
-                    <div className='w-[90%] xl:w-[70%]' >
+                    <div className='w-[90%] xl:w-[70%] mt-5' >
                         {children}
                     </div>
                 </div>

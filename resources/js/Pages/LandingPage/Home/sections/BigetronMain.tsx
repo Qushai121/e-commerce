@@ -10,26 +10,26 @@ import { Link } from "@inertiajs/react";
 
 const BigetronMenus = [
     {
-        image: "/icons/yae.png",
+        image: "/assets/banner.webp",
         subTitle: "Memiliki Pekerja Bersertif",
         deskripsi:
             "Pekerja Memiliki Skill mumpuni. Cepat dalam melaksanaka tugas",
-        icons: "/icons/yae.png",
+        icons: "/assets/banner.webp",
     },
     {
-        image: "/icons/yae.png",
+        image: "/assets/banner.webp",
         subTitle: "iya",
-        icons: "/icons/yae.png",
+        icons: "/assets/banner.webp",
     },
     {
-        image: "/icons/yae.png",
+        image: "/assets/banner.webp",
         subTitle: "turu",
-        icons: "/icons/yae.png",
+        icons: "/assets/banner.webp",
     },
     {
-        image: "/icons/yae.png",
+        image: "/assets/banner.webp",
         subTitle: "turu",
-        icons: "/icons/yae.png",
+        icons: "/assets/banner.webp",
     },
 ];
 
@@ -37,7 +37,7 @@ export const BigetronMain = ({ }) => {
     const wiper = useSwiper()
     // console.log(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
     return (
-        <section className="relative ">
+        <section className="relative mt-5">
             <Swiper
                 className="mySwiper rounded-2xl"
                 // style={{
@@ -60,22 +60,17 @@ export const BigetronMain = ({ }) => {
                     return (
                         <SwiperSlide key={key}>
                             <div
-                                className="h-[35vh] duration-300 rounded-2xl"
+                                className="duration-300 rounded-2xl"
                                 style={{
-                                    backgroundImage: `url(http://127.0.0.1:8000${data.image})`,
-                                    backgroundRepeat: "no-repeat",
-                                    backgroundSize: "cover",
-                                    backgroundPosition: "center",
-                                    // backgroundColor: "rgba(248, 247, 216, 0.2)",
-                                    backgroundBlendMode: "lighten",
+                                    height: '35vh',
                                 }}
                             >
-
+                                <img src={`http://127.0.0.1:8000${data.image}`} className="h-full object-cover rounded-2xl" alt="" />
                             </div>
                         </SwiperSlide>
                     );
                 })}
             </Swiper>
-        </section>
+        </section >
     );
 };

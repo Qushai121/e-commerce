@@ -100,7 +100,7 @@ const AddProduct = () => {
                                                 </div>
                                                 <div className='flex flex-col mx-4 items-start' >
                                                     <InputLabel htmlFor="release_date" className=' font-medium ' >Release Date</InputLabel>
-                                                    <TextInput disabled={!mystores.chosenStore} type="date"  onChange={(e) => setData("release_date", e.target.value)} placeholder="Type here" id='release_date' />
+                                                    <TextInput disabled={!mystores.chosenStore} type="date" onChange={(e) => setData("release_date", e.target.value)} placeholder="Type here" id='release_date' />
                                                     <InputError message={errors.release_date} />
                                                 </div>
                                                 <div className='flex flex-col mx-4 items-start' >

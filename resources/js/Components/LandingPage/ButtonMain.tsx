@@ -24,9 +24,9 @@ const ButtonMain: React.FC<ButtonMainProps> = ({ variant = 'border', className =
                     disabled ?
                         <span className="loading loading-spinner loading-xs bg-green-600"></span>
                         :
-                        <p className='w-full'>
+                        <div className='w-full'>
                             {children}
-                        </p>
+                        </div>
                 }
             </div>
         </button>

@@ -2,7 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Role;
 use App\Models\Store;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
@@ -34,9 +36,15 @@ class HandleInertiaRequests extends Middleware
         return array_merge(parent::share($request), [
             'auth' => [
                 'user' => $request->user(),
+                'roles' => $request->user() ?
+                    User::select('id')->find($request->user()->id)->load(['specialAccesss' => function ($q) {
+                        $q->select('permission');
+                        
+                    }])->setAppends([])->setHidden(['pivot'])->toArray()
+                    : null
             ],
             'mystores' => [
-                'stores' => Store::when(auth()->user()?->id)->where('user_id', auth()->user()?->id)->get(['store_name', 'id']),
+                'stores' => Store::when($request->user()?->id)->where('user_id', $request->user()?->id)->get(['store_name', 'id']),
                 'chosenStore' => $request->session()->get('mystore') ?: null,
                 // 'chosenStore' => $request->session()->get('mystore') ?: Stores::when(auth()->user()?->id)->where('user_id', auth()->user()?->id)->first(['id'])['id'] ,
             ],

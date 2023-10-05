@@ -13,7 +13,7 @@ class SpecialAccessController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
