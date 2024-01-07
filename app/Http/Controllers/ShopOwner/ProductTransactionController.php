@@ -9,9 +9,13 @@ use Inertia\Inertia;
 
 class ProductTransactionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $datas = ProductTransaction::orderBy('created_at', 'DESC')->with([
+
+        $myStoreNow = $request->session()->get('mystore');
+
+
+        $datas = ProductTransaction::where('store_id', $myStoreNow)->orderBy('created_at', 'DESC')->with([
             'store' => function ($q) {
                 $q->select('id', 'store_name', 'user_id');
                 $q->where('user_id', auth()->user()->id);

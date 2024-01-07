@@ -55,6 +55,7 @@ Route::middleware('auth', 'role:shop_owner')->prefix('shop_owner')->group(functi
     Route::get('product_transaction', [ShopOwnerProductTransactionController::class, 'index'])->name('shop_owner.product.transaction');
 });
 
+
 // this is action for Landing page to input some data to db 
 // and some view for user that have been login
 Route::middleware('auth')->group(function () {

@@ -30,7 +30,7 @@ class ShopOwnerController extends Controller
     public function store()
     {
         $user = auth()->user();
-        $specialAccessId = 1;
+        $specialAccessId = 2;
 
         Role::firstOrCreate(
             [

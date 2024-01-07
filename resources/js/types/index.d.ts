@@ -1,7 +1,7 @@
 import { Product } from "@/model/Product";
 import { Store } from "@/model/Store";
 
-export interface User {
+export type User = {
     id: number;
     name: string;
     email: string;
@@ -9,10 +9,21 @@ export interface User {
     specialAccess: string[];
     avatar: string
 
+
+}
+
+export type Role = {
+    id: number;
+    special_accesss: SpecialAccess[];
+}
+
+export type SpecialAccess = {
+    permission: string;
 }
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
     auth: {
+        roles: Role
         user: User,
     };
     datas: any,

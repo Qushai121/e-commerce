@@ -1,3 +1,4 @@
+import formatRupiah from '@/Helper/Rupiah_helper';
 import { Product } from '@/model/Product'
 import { Link } from '@inertiajs/react';
 import React from 'react'
@@ -20,7 +21,7 @@ const Products: React.FC<ProductsProps> = ({ products }) => {
                                 <h2 className="text-sm">
                                     {product.product_name}
                                 </h2>
-                                <p className='font-bold my-1' >$ {product.price}</p>
+                                <p className='font-bold my-1' >{formatRupiah(product.price)}</p>
                                 <div className='flex flex-col gap-1' >
                                     <p className='font-medium text-sm bg-green-600 w-fit px-1 rounded-md text-white'>
                                         discounts

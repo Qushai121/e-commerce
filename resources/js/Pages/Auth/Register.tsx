@@ -1,4 +1,4 @@
-import { useEffect, FormEventHandler } from 'react';
+import { useEffect, FormEventHandler, useReducer } from 'react';
 import GuestLayout from '@/Layouts/GuestLayout';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
@@ -6,30 +6,78 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
 
+export type dataawal = {
+    name: string,
+    kelas: string,
+}
+
+export type action = {
+    type: string,
+}
+
+function ReducerFunc(tasks: dataawal[] | null | dataawal, action: action): null | dataawal[] | dataawal {
+    switch (action.type) {
+        case 'coba': {
+            return {
+                name: 'asdas',
+                kelas: 'asdasd'
+            }
+
+        }
+
+        default: {
+            return null
+        }
+
+    }
+}
+
 export default function Register() {
-    const { data, setData, post, processing, errors, reset } = useForm({
+
+    const dataawal: dataawal[] = [{
+        name: "Qushai",
+        kelas: "12 ips 4",
+    }];
+
+
+    const [isi, dispatch] = useReducer(ReducerFunc, dataawal);
+
+    function absen() {
+
+        dispatch({
+            type: "coba",
+
+        });
+
+        console.log(isi);
+
+    }
+
+    const { data, setData, post, processing, errors, reset, setDefaults, wasSuccessful } = useForm({
         name: '',
         email: '',
         password: '',
         password_confirmation: '',
     });
 
-    useEffect(() => {
-        return () => {
-            reset('password', 'password_confirmation');
-        };
-    }, []);
+
+
+
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
         post(route('register'));
+
+        if (wasSuccessful) {
+            reset('password', 'password_confirmation');
+        }
     };
 
     return (
         <GuestLayout>
             <Head title="Register" />
-
+            <button onClick={absen} >click</button>
             <form onSubmit={submit}>
                 <div>
                     <InputLabel htmlFor="name" value="Name" />

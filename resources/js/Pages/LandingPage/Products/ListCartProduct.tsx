@@ -6,6 +6,7 @@ import { router, usePage } from '@inertiajs/react';
 import ButtonMain from '@/Components/LandingPage/ButtonMain';
 import { PageProps } from '@/types';
 import EditCartProduct from './Cart/EditCartProduct';
+import formatRupiah from '@/Helper/Rupiah_helper';
 
 type ListCartProductProps = {
     cartProducts: (Pick<Product, 'id' | 'product_name' | 'price' | 'image' | 'discount' | 'store_id' | 'stock'> & {
@@ -54,10 +55,10 @@ const ListCartProduct: React.FC<ListCartProductProps> = ({ cartProducts, cartTot
                                         <p>
                                             Price:
                                             <span className='line-through text-stone-400' >
-                                                {' '}${cartProduct.price}
+                                                {' '}{formatRupiah(cartProduct.price)}
                                             </span>
                                             <span>
-                                                {' '}${cartProduct.price - cartProduct.discount}
+                                                {' '}{formatRupiah(cartProduct.price - cartProduct.discount)}
                                             </span>
                                         </p>
                                         <p>
@@ -67,7 +68,7 @@ const ListCartProduct: React.FC<ListCartProductProps> = ({ cartProducts, cartTot
                                             </span>
                                         </p>
                                         <p>
-                                            sub total : <span> ${cartProduct.total_price}</span>
+                                            sub total : <span> {formatRupiah(cartProduct.total_price)}</span>
                                         </p>
                                     </div>
                                 </div>
@@ -84,7 +85,7 @@ const ListCartProduct: React.FC<ListCartProductProps> = ({ cartProducts, cartTot
                         <p>
                             Total Price:
                             <span>
-                                {' '}${cartTotalPrice}
+                                {' '}{formatRupiah(cartTotalPrice)}
                             </span>
                         </p>
                         <ButtonMain onClick={handleSubmit}>Pay All</ButtonMain>

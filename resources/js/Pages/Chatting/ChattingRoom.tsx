@@ -16,13 +16,13 @@ type ChattingRoomProps = {
 
 } & PageProps
 
-const ChattingRoom: React.FC<ChattingRoomProps> = ({ messages, shopOwner,customer, auth }) => {
+const ChattingRoom: React.FC<ChattingRoomProps> = ({ messages, shopOwner, customer, auth }) => {
   const listChat = useRef<HTMLDivElement>(null)
 
   console.log(customer);
-  
+
   const [messagess, setmessagess] = useState(messages.messages)
-  const inputRef = useRef<HTMLInputElement>()
+  const inputRef = useRef<HTMLInputElement>(null)
 
   function handleBack() {
     window.history.back()
@@ -48,7 +48,7 @@ const ChattingRoom: React.FC<ChattingRoomProps> = ({ messages, shopOwner,custome
 
   useEffect(() => {
     window.Echo.channel(`messages${messages.id}`).listen("MessageCreated", (event: any) => {
-      setmessagess((prev) => [...prev, event.message])
+      setmessagess((prev: any) => [...prev, event.message])
     })
   }, [])
 

@@ -37,11 +37,11 @@ class ChattingRoomController extends Controller
         $customer = User::select(['id', 'name', 'avatar'])->find($chattingRoom->customer_id);
 
         $messages = $chattingRoom->with(['messages.user'])->where('id', $chattingRoom->id)->first();
-        if($messages->shop_owner_id !== auth()->user()->id && $messages->customer_id !== auth()->user()->id){
+        if ($messages->shop_owner_id !== auth()->user()->id && $messages->customer_id !== auth()->user()->id) {
             return redirect()->back();
         };
 
-        return Inertia::render('Chatting/ChattingRoom', compact('messages', 'shopOwner','customer'));
+        return Inertia::render('Chatting/ChattingRoom', compact('messages', 'shopOwner', 'customer'));
     }
 
     /**
@@ -52,7 +52,7 @@ class ChattingRoomController extends Controller
         $res = ChattingMessage::create($request->post());
 
         // dd($res);
-        $messages = ChattingMessage::where('id',$res->id)->with(['user' => function ($q) {
+        $messages = ChattingMessage::where('id', $res->id)->with(['user' => function ($q) {
             $q->select('id', 'name', 'avatar');
         }])->first();
 
@@ -70,8 +70,7 @@ class ChattingRoomController extends Controller
     /**
      * 
      */
-    public function destroy(ChattingRoom $chattingRoom)
+    public function listRoom()
     {
-        //
     }
 }

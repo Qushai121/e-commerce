@@ -18,7 +18,6 @@ class CartController extends Controller
         $cartTotalPrice = 0;
 
         if (session()->get('cart.product') != null) {
-
             $cartProductIds = array_keys(session()->get('cart.product'));
             $cartProductsFromDb = Product::select('id', 'product_name', 'price', 'image', 'discount', 'store_id', 'stock')->findMany($cartProductIds);
 

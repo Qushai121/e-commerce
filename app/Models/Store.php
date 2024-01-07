@@ -31,6 +31,8 @@ class Store extends Model
         return $this->belongsTo(User::class);
     }
 
+    
+
     // public function getOwnerAttribute()
     // {
     //     if ($this->user) {

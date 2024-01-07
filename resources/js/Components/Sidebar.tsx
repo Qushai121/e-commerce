@@ -80,12 +80,15 @@ type SidebarProps = {
 
 const Sidebar: React.FC<SidebarProps> = ({ user, openSideBar, handleOpenSideBar }) => {
     const specialAccess = usePage<PageProps>().props.auth.roles.special_accesss;
-    const [permissions, setpermissions] = useState([])
+
+    
+    const [permissions, setpermissions] = useState<any[]>([])
 
     function permissionss() {
         for (let i = 0; i < specialAccess.length; i++) {
             const element = specialAccess[i];
-            setpermissions((prev) => [...prev, element.permission])
+                setpermissions((prev) => [...prev, element.permission])
+            
         }
 
     }
@@ -95,22 +98,12 @@ const Sidebar: React.FC<SidebarProps> = ({ user, openSideBar, handleOpenSideBar 
         permissionss()
     }, [])
 
-    useEffect(() => {
-
-        setOpenDropDown(' ')
-        localStorage.setItem('DropdownAdmin', ' ')
-
-        return () => {
-
-        }
-    }, [window.location.href])
 
 
 
     const [openDropDown, setOpenDropDown] = useState<string>(localStorage.getItem('DropdownAdmin') || ' ')
 
     function handleOpenDropDown(theRoute: string) {
-        console.log(theRoute);
 
         if (theRoute == openDropDown) {
             setOpenDropDown(' ')

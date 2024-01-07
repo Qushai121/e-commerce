@@ -14,9 +14,72 @@ use Inertia\Inertia;
 class ProductTransactionController extends Controller
 {
 
+    public function __construct()
+    {
+        // Set your Merchant Server Key
+        \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        \Midtrans\Config::$isProduction = false;
+        // Set sanitization on (default)
+        \Midtrans\Config::$isSanitized = true;
+        // Set 3DS transaction for credit card to true
+        \Midtrans\Config::$is3ds = true;
+    }
+
     public function productTransactionPay(Request $request, Product $product)
     {
         return self::transactionPay($request->post('quantity'), $product);
+    }
+
+    public function productSnapToken(Request $request)
+    {
+        $data = $request->post('dataProduct');
+
+        $productIds = array_map(function ($item) {
+            return $item['productId'];
+        }, $data);
+
+        // find all the product by id and gte all data that needed 
+        $productDatas = Product::whereIn('id', $productIds)->get(['price', 'stock', 'store_id', 'id', 'product_name', 'discount']);
+
+        // adding quntity
+        $productDatasWithQuantity = null;
+        foreach ($data as $key => $item) {
+            if ($item['productId'] == $productDatas[$key]['id']) {
+                $productData = $productDatas[0];
+
+                $productDatasEditSomeKey = [
+                    'id' => $productData['id'],
+                    'quantity' => $productData['quantity'],
+                    'price' => $productData['price'] - ($productData['price'] * $productData['discount'] / 100),
+                    'name' => $productData['product_name'],
+                ];
+
+                $productDatasWithQuantity[$key] = array_merge($productDatasEditSomeKey, $item);
+            }
+        }
+
+
+        $params = [
+            'transaction_details' => [
+                'order_id' => uniqid(mt_rand(), true),
+            ],
+            'customer_details' => [
+                'user_id' => 1,
+                'first_name' => 'ini',
+                'email' => 'asdasdas@gmail.com'
+            ],
+            'item_details' => $productDatasWithQuantity,
+            "finish_redirect_url" =>  '',
+            "unfinish_redirect_url" => '',
+            'error_redirect_url' => ''
+        ];
+
+        $snapToken = \Midtrans\Snap::getSnapToken($params);
+
+        // return $snapToken;
+        return response()->json(['snapToken' => $snapToken]);
+
     }
 
     public function productCartTransactionPay(Request $request)
@@ -47,10 +110,10 @@ class ProductTransactionController extends Controller
         };
 
         // find 
-       $storeData = $product->with(['store' => function ($q) use($product) {
-            $q->select(['id','user_id']);
-            $q->where('id','=',$product->store_id);
-        }])->first(['products.id','products.store_id']);
+        $storeData = $product->with(['store' => function ($q) use ($product) {
+            $q->select(['id', 'user_id']);
+            $q->where('id', '=', $product->store_id);
+        }])->first(['products.id', 'products.store_id']);
 
         // $storeData = $product->with(['store:id,user_id'])->where('id', $product->store_id)->first(['id', 'store_id']);
 
